@@ -38,7 +38,7 @@ jobs:
           file: ./Dockerfile
           platforms: linux/amd64
           push: true
-          tags: matej.todorovski/gameshop-app:latest
+          tags: matejtod/gameshop-app:latest
 
   deploy:
     needs: build
@@ -56,7 +56,7 @@ jobs:
 
       - name: Deploy to server
         run: |
-          docker pull matej.todorovski/gameshop-app:latest
+          docker pull matejtod/gameshop-app:latest
           docker stop gameshop-app || true
           docker rm gameshop-app || true
-          docker run -d --name gameshop-app -p 9090:9090 matej.todorovski/gameshop-app:latest
+          docker run -d --name gameshop-app -p 9090:9090 matejtod/gameshop-app:latest
