@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gameshop-app
+  namespace: gameshop
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gameshop-app
+  template:
+    metadata:
+      labels:
+        app: gameshop-app
+    spec:
+      containers:
+        - name: gameshop-app
+          image: matejtod/gameshop-app:latest
+          ports:
+            - containerPort: 9090
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: jdbc:postgresql://db:5432/GameShop
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: POSTGRES_PASSWORD
